@@ -1,0 +1,6 @@
+# Thư mục và tệp tạo bởi IDE hoặc hệ thống
+*.class
+*.log
+.idea/
+*.iml
+.DS_Store
