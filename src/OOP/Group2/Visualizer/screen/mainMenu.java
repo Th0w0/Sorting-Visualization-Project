@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 //import internal
 import OOP.Group2.Visualizer.graphicsElements.color.colorConcept;
+import OOP.Group2.Visualizer.screen.menu.menuHelping;
 import OOP.Group2.Visualizer.screen.menu.menuSortingBasic;
 
 
@@ -18,15 +19,22 @@ public class mainMenu extends JFrame{
     private JPanel mainPanel, container;
     private JLabel titleLabel;
     private JButton helpMenuButton, quitButton, sortBasicButton, sortMultiButton;
-    private static final int WIDTH = 1024, HEIGHT = 768;
+    private static final int WIDTH = 1920, HEIGHT = 1090;
 
     public mainMenu(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(WIDTH, HEIGHT));
         setLocationRelativeTo(null);
-        setBackground(colorConcept.BACKGROUND);
         setTitle("TEAM 2's Sorting Visualizer");
+
+        // Load GIF
+        ImageIcon gifIcon = new ImageIcon("D:\\code\\SortingDemonstrate\\src\\OOP\\Group2\\Visualizer\\graphicsElements\\background\\menuBackground.gif");
+        JLabel gifLabel = new JLabel(gifIcon);
+        gifLabel.setLayout(new BorderLayout());
+
+        setContentPane(gifLabel);
         initialize();
+
         setVisible(true);
     }
     private void initialize(){
@@ -38,7 +46,7 @@ public class mainMenu extends JFrame{
         
         Container container = getContentPane();
         container.setLayout(new BorderLayout());
-        container.setBackground(colorConcept.BACKGROUND);
+        container.setBackground(colorConcept.TRANSPARENT);
 
         // add title label
         titleLabel = new JLabel("Sorting Visualizer");
@@ -56,6 +64,70 @@ public class mainMenu extends JFrame{
                 dispose();
             }
         });
+        //add multi sort button 
+        sortMultiButton = new JButton("Multiple Sort");
+        sortMultiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                // new menuSortingMulti().setVisible(true);
+                dispose();
+            }
+        });
+
+        //add help button
+        helpMenuButton = new JButton("Help");
+        helpMenuButton.addActionListener(new ActionListener() {
+            @Override 
+            public void actionPerformed(ActionEvent e){
+                // new menuHelping().setVisible(true);
+                dispose();
+            }
+        });
+
+        //add quit button
+        quitButton = new JButton("Quit");
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                int input = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Quit", 2);
+                //0=yes, 1=no
+                if(input == 0){
+                    System.exit(0);
+                }
+            }
+        });
+        
+        //set font, size for button
+        Font buttonnFont = sortBasicButton.getFont().deriveFont(Font.PLAIN, 30f);
+        Dimension buttonSize = new Dimension(320,75);
+        sortBasicButton.setFont(buttonnFont);
+        sortMultiButton.setFont(buttonnFont);
+        helpMenuButton.setFont(buttonnFont);
+        quitButton.setFont(buttonnFont);
+        sortBasicButton.setPreferredSize(buttonSize);
+        sortMultiButton.setPreferredSize(buttonSize);
+        helpMenuButton.setPreferredSize(buttonSize);
+        quitButton.setPreferredSize(buttonSize);
+
+        //add title Sorting Visualization
+        container.add(titleLabel,BorderLayout.NORTH);
+
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 10, 0);
+
+        buttonPanel.add(sortBasicButton,gbc);
+        gbc.gridy++;
+        buttonPanel.add(sortMultiButton,gbc);
+        gbc.gridy++;
+        buttonPanel.add(helpMenuButton,gbc);
+        gbc.gridy++;
+        buttonPanel.add(quitButton,gbc);
+        buttonPanel.setBackground(colorConcept.TRANSPARENT);
+
+        container.add(buttonPanel,BorderLayout.CENTER);
 
 
 

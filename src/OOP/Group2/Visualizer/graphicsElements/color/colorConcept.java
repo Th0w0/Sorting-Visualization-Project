@@ -19,4 +19,5 @@ public class colorConcept {
 
 	public static Color FIELD_BORDER = new Color(38, 38, 38);
 	public static Color PINK = new Color(205, 171, 235);
+	public static Color TRANSPARENT = new Color(0, 0, 0, 0); 
 }
