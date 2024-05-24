@@ -24,7 +24,7 @@ Welcome to the Sorting Visualization Project! This project is a graphical repres
 ## Installation and Setup
 1. **Clone the Repository**: 
     ```sh
-    git clone https://github.com/your-repository/sorting-visualization.git
+    git clone https://github.com/duongnguyen291/SortingDemonstrate
     ```
 2. **Navigate to the Project Directory**:
     ```sh
