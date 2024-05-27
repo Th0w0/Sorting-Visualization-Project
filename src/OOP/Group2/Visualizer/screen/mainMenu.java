@@ -4,15 +4,13 @@ package OOP.Group2.Visualizer.screen;
 //import libaries
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //import internal
-import OOP.Group2.Visualizer.graphicsElements.color.colorConcept;
-import OOP.Group2.Visualizer.screen.menu.menuHelping;
-import OOP.Group2.Visualizer.screen.menu.menuSortingBasic;
+import OOP.Group2.Visualizer.graphicsElements.color.*;
+import OOP.Group2.Visualizer.screen.menu.*;
 
 
 public class mainMenu extends JFrame{
@@ -28,7 +26,7 @@ public class mainMenu extends JFrame{
         setTitle("TEAM 2's Sorting Visualizer");
 
         // Load GIF
-        ImageIcon gifIcon = new ImageIcon("D:\\code\\SortingDemonstrate\\src\\OOP\\Group2\\Visualizer\\graphicsElements\\background\\menuBackground.gif");
+        ImageIcon gifIcon = new ImageIcon("D:\\github\\SortingDemonstrate\\src\\OOP\\Group2\\Visualizer\\graphicsElements\\background\\menuBackground.gif");
         JLabel gifLabel = new JLabel(gifIcon);
         gifLabel.setLayout(new BorderLayout());
 
@@ -60,7 +58,7 @@ public class mainMenu extends JFrame{
         sortBasicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                // new menuSortingBasic().setVisible(true);
+                new menuSortingBasic().setVisible(true);
                 dispose();
             }
         });
@@ -79,7 +77,7 @@ public class mainMenu extends JFrame{
         helpMenuButton.addActionListener(new ActionListener() {
             @Override 
             public void actionPerformed(ActionEvent e){
-                // new menuHelping().setVisible(true);
+                new menuHelping(); 
                 dispose();
             }
         });

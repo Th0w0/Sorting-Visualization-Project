@@ -11,6 +11,8 @@ public class colorConcept {
 	public static Color BAR_YELLOW = new Color(244, 131, 66);
 	public static Color BAR_ORANGE = new Color(214, 131, 79);
 	public static Color BAR_GREEN = new Color(135, 170, 102);
+	public static Color BAR_INDIGO = new Color(64, 0, 152);
+	public static Color BAR_PURPLE = new Color(142, 0, 142);
 
 	public static Color TEXT = new Color(18, 42, 71);
 	public static Color TEXT_RED = new Color(221, 77, 77);
