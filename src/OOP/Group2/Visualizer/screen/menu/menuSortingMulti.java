@@ -20,7 +20,7 @@ import OOP.Group2.Visualizer.graphicsElements.button.buttonFrame.buttonPanel;
 
 public class menuSortingMulti extends JFrame implements PropertyChangeListener,
     ChangeListener, sorter.SortedListener,
-    buttonPanel.SortButtonListener, myCanvas.VisualizerProvider{
+    buttonPanel.ButtonListener, myCanvas.VisualizerProvider{
     public static final long serialVersionUID = 10L;
     private static final int WIDTH = 1920, HEIGHT = 1090;
     private static final int CAPACITY = 50, FPS = 100;
@@ -83,33 +83,21 @@ public class menuSortingMulti extends JFrame implements PropertyChangeListener,
 
 
     // button clicked
-    public void sortButtonClicked(int id) {
+    public void ButtonClicked(int id) {
         switch (id) {
             case 0:  // create button
                 sorter.createRandomArray(canvas.getWidth(), canvas.getHeight());
                 break;
-            case 1:  // radix button
-                sorter.radixSort();
+            case 1:
+                sorter.createFewUniqueArray(canvas.getWidth(), canvas.getHeight());
                 break;
-            case 2:  // counting button
-                sorter.countingSort();
+            case 2:
+                sorter.createReverseArray(canvas.getWidth(), canvas.getHeight());
                 break;
-            case 3:  // merge button
-                sorter.mergeSort();
+            case 3:
+                sorter.createNearlySortArray(canvas.getWidth(), canvas.getHeight());
                 break;
-            case 4: //quick sort
-                sorter.quickSort();
-                break;			
-            case 5: //buble sort
-                sorter.bubbleSort();
-                break;			
-            case 6: //selection sort
-                sorter.selectionSort();
-                break;			
-            case 7: //shell sort
-                sorter.shellSort();
-                break;			
-            case 8:  //back button
+            case 4: //back
                 new mainMenu();
                 dispose();
         }
