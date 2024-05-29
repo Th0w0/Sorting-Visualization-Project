@@ -64,7 +64,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
 
         // add buttons panel
         buttonPanel = new buttonPanel(this);
-        buttonPanel.setBounds(400, 730, 600, 250);
+        buttonPanel.setBounds(280, 730, 900, 250);
         buttonPanel.setBackground(colorConcept.BACKGROUND);
         mainPanel.add(buttonPanel);
 
@@ -105,7 +105,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         fpsPanel.add(fpsLabel);
         fpsPanel.add(fpsField);
         fpsPanel.setBackground(colorConcept.BACKGROUND);
-        fpsPanel.setBounds(70, 890, 190, 50);
+        fpsPanel.setBounds(50, 890, 190, 50);
         mainPanel.add(fpsPanel);
 
         fpsField.addPropertyChangeListener("value", new PropertyChangeListener() {
@@ -137,7 +137,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         capacityPanel.add(capacityLabel);
         capacityPanel.add(capacityField);
         capacityPanel.setBackground(colorConcept.BACKGROUND);
-        capacityPanel.setBounds(70, 810, 190, 50);
+        capacityPanel.setBounds(50, 810, 190, 50);
         mainPanel.add(capacityPanel);
 
         capacityField.addPropertyChangeListener("value", new PropertyChangeListener() {
@@ -151,17 +151,17 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         // statistics
         // elapsed time
         timeLabel = new JLabel("Elapsed Time: 0 µs");
-        timeLabel.setFont(new Font(null, Font.BOLD, 21));
+        timeLabel.setFont(new Font(null, Font.BOLD, 19));
         timeLabel.setForeground(colorConcept.TEXT);
 
         // comparisons
         compLabel = new JLabel("Comparisons: 0");
-        compLabel.setFont(new Font(null, Font.BOLD, 21));
+        compLabel.setFont(new Font(null, Font.BOLD, 19));
         compLabel.setForeground(colorConcept.TEXT);
 
         // swapping
         swapLabel = new JLabel("Swaps: 0");
-        swapLabel.setFont(new Font(null, Font.BOLD, 21));
+        swapLabel.setFont(new Font(null, Font.BOLD, 19));
         swapLabel.setForeground(colorConcept.TEXT);
 
         // statistic panel
@@ -171,7 +171,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         inforPanel.add(compLabel);
         inforPanel.add(swapLabel);
         inforPanel.setBackground(colorConcept.BACKGROUND);
-        inforPanel.setBounds(1450, 790, 350, 150);
+        inforPanel.setBounds(1500, 790, 350, 150);
         mainPanel.add(inforPanel);
 
         // Sort ChoiceBox
@@ -187,11 +187,11 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
 
         sortLabel = new JLabel("Choose a Sorting Algorithm:");
         sortLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        sortLabel.setFont(new Font(null, Font.BOLD, 18));
+        sortLabel.setFont(new Font(null, Font.BOLD, 16));
         sortLabel.setForeground(colorConcept.TEXT);
 
         JComboBox<String> comboBox = new JComboBox<>(sortOptions);
-        comboBox.setPreferredSize(new Dimension(180, 50));
+        comboBox.setPreferredSize(new Dimension(150, 50));
 
         // Chỉnh màu nền của JComboBox
         comboBox.setBackground(colorConcept.CANVAS_BACKGROUND);
@@ -236,7 +236,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         sortPanel.add(sortLabel);
         sortPanel.add(comboBox);
 
-        sortPanel.setBounds(1050, 820, 300, 80);
+        sortPanel.setBounds(1200, 820, 250, 80);
         mainPanel.add(sortPanel);
 
     }
@@ -257,7 +257,11 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
             case 3:
                 sorter.createNearlySortArray(canvas.getWidth(), canvas.getHeight());
                 break;
-            case 4: //back
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6: //back
                 new mainMenu();
                 dispose();
         }

@@ -33,7 +33,8 @@ public class buttonPanel extends JPanel{
         setLayout(null);
         for (int i = 0; i < buttons.length; i++) {
             if (i == 6) buttons[i].setBounds(30, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
-            else if (i > 3) buttons[i].setBounds(30 + (BUTTON_WIDTH + 30) * (i - 4), 160, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else if (i == 5) buttons[i].setBounds(610, 160, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else if (i == 4) buttons[i].setBounds(610, 70, BUTTON_WIDTH, BUTTON_HEIGHT);
             else if (i > 1) buttons[i].setBounds(30 + (BUTTON_WIDTH + 30) * (i - 2), 160, BUTTON_WIDTH, BUTTON_HEIGHT);
             else buttons[i].setBounds(30+ (BUTTON_WIDTH + 30) * i, 70, BUTTON_WIDTH, BUTTON_HEIGHT);
             add(buttons[i]);
@@ -69,7 +70,7 @@ public class buttonPanel extends JPanel{
     public void setButtonIcon(JLabel button, String iconName ){
         String currentDirectory = System.getProperty("user.dir"); // Lấy đường dẫn thư mục hiện tại của ứng dụng
         // System.out.println(currentDirectory);
-        String path = String.format("%s/OOP/Group2/Visualizer/graphicsElements/button/buttonImage/%s.png", currentDirectory, iconName); //dynamic đường dẫn
+        String path = String.format("%s/src/OOP/Group2/Visualizer/graphicsElements/button/buttonImage/%s.png", currentDirectory, iconName); //dynamic đường dẫn
         button.setIcon(new ImageIcon(path));
     }
     private void initBackButton(JLabel button, int id) {
