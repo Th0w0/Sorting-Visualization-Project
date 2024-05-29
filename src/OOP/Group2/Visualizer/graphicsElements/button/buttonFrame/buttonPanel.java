@@ -43,7 +43,6 @@ public class buttonPanel extends JPanel{
     }
     private void initButtons(JLabel button, String name, int id) {
         setButtonIcon(button, name);
-
         button.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {}
 

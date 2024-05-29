@@ -32,6 +32,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
     private JFormattedTextField fpsField;
     private myCanvas canvas;
     private sorter sorter;
+    private SwingWorker<Void, Void> sortWorker;
 
     public menuSortingBasic() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -258,8 +259,12 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
                 sorter.createNearlySortArray(canvas.getWidth(), canvas.getHeight());
                 break;
             case 4:
+                System.out.println("Da nhan vao pause");
+                sorter.pause();
                 break;
             case 5:
+                System.out.println("Da nhan vao resume");
+                sorter.resume();
                 break;
             case 6: //back
                 new mainMenu();
@@ -290,4 +295,9 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
 
         return bs;
     }
+    @Override
+    public myCanvas getCanvas() {
+        return canvas;
+    }
+   
 }
