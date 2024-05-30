@@ -26,7 +26,7 @@ public class mainMenu extends JFrame{
         setTitle("TEAM 2's Sorting Visualizer");
 
         // Load GIF
-        ImageIcon gifIcon = new ImageIcon("D:\\github\\SortingDemonstrate\\src\\OOP\\Group2\\Visualizer\\graphicsElements\\background\\menuBackground.gif");
+        ImageIcon gifIcon = new ImageIcon("D:\\code\\SortingDemonstrate\\src\\OOP\\Group2\\Visualizer\\graphicsElements\\background\\menuBackground.gif");
         JLabel gifLabel = new JLabel(gifIcon);
         gifLabel.setLayout(new BorderLayout());
 

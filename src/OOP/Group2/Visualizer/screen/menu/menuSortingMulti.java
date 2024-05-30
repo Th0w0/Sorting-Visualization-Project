@@ -55,10 +55,6 @@ public class menuSortingMulti extends JFrame implements PropertyChangeListener,
 
 
 
-
-
-
-
         
     }
 

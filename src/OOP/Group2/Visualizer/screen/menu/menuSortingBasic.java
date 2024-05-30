@@ -21,8 +21,8 @@ import OOP.Group2.Visualizer.graphicsElements.myFormatter.myFormatter;
 public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         buttonPanel.ButtonListener, myCanvas.VisualizerProvider {
     public static final long serialVersionUID = 10L;
-    private static final int WIDTH = 1920, HEIGHT = 1090;
-    private static final int CAPACITY = 50, FPS = 100;
+    private static final int WIDTH = 1230, HEIGHT = 768;
+    private static final int CAPACITY = 50, FPS = 50;
     private JPanel mainPanel, capacityPanel, fpsPanel, inforPanel, sortPanel;
     private buttonPanel buttonPanel;
     private JLabel capacityLabel, fpsLabel, timeLabel, compLabel, swapLabel, sortLabel;
@@ -65,14 +65,14 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
 
         // add buttons panel
         buttonPanel = new buttonPanel(this);
-        buttonPanel.setBounds(280, 730, 900, 250);
+        buttonPanel.setBounds(180, (int)(0.75 * HEIGHT), 650, 250);
         buttonPanel.setBackground(colorConcept.BACKGROUND);
         mainPanel.add(buttonPanel);
 
         // add canvas
         canvas = new myCanvas(this);
         int cWidth = WIDTH;
-        int cHeight = HEIGHT - 370;
+        int cHeight = 3 * HEIGHT / 4;
         canvas.setFocusable(false);
         canvas.setMaximumSize(new Dimension(cWidth, cHeight));
         canvas.setMinimumSize(new Dimension(cWidth, cHeight));
@@ -88,14 +88,14 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         // FPS input
         JLabel fpsLabel = new JLabel("FPS");
         fpsLabel.setForeground(colorConcept.TEXT);
-        fpsLabel.setFont(new Font(null, Font.BOLD, 18));
+        fpsLabel.setFont(new Font(null, Font.BOLD, 15));
 
         NumberFormat format1 = NumberFormat.getNumberInstance();
         myFormatter formatter1 = new myFormatter(format1);
         JFormattedTextField fpsField = new JFormattedTextField(formatter1);
         fpsField.setValue(FPS);
         fpsField.setColumns(3);
-        fpsField.setFont(new Font(null, Font.PLAIN, 18));
+        fpsField.setFont(new Font(null, Font.PLAIN, 15));
         fpsField.setForeground(colorConcept.TEXT);
         fpsField.setBackground(colorConcept.CANVAS_BACKGROUND);
         fpsField.setCaretColor(colorConcept.BAR_YELLOW);
@@ -106,7 +106,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         fpsPanel.add(fpsLabel);
         fpsPanel.add(fpsField);
         fpsPanel.setBackground(colorConcept.BACKGROUND);
-        fpsPanel.setBounds(50, 890, 190, 50);
+        fpsPanel.setBounds(30, (int)(0.83 * HEIGHT) + 50,(int) (0.12 * WIDTH), 40);
         mainPanel.add(fpsPanel);
 
         fpsField.addPropertyChangeListener("value", new PropertyChangeListener() {
@@ -120,14 +120,14 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         // Capacity input
         JLabel capacityLabel = new JLabel("Capacity");
         capacityLabel.setForeground(colorConcept.TEXT);
-        capacityLabel.setFont(new Font(null, Font.BOLD, 18));
+        capacityLabel.setFont(new Font(null, Font.BOLD, 15));
 
         NumberFormat format2 = NumberFormat.getNumberInstance();
         myFormatter formatter2 = new myFormatter(format2);
         JFormattedTextField capacityField = new JFormattedTextField(formatter2);
         capacityField.setValue(CAPACITY);
         capacityField.setColumns(3);
-        capacityField.setFont(new Font(null, Font.PLAIN, 18));
+        capacityField.setFont(new Font(null, Font.PLAIN, 15));
         capacityField.setForeground(colorConcept.TEXT);
         capacityField.setBackground(colorConcept.CANVAS_BACKGROUND);
         capacityField.setCaretColor(colorConcept.BAR_YELLOW);
@@ -138,7 +138,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         capacityPanel.add(capacityLabel);
         capacityPanel.add(capacityField);
         capacityPanel.setBackground(colorConcept.BACKGROUND);
-        capacityPanel.setBounds(50, 810, 190, 50);
+        capacityPanel.setBounds(30, (int)(0.75 * HEIGHT) + 50,(int) (0.12 * WIDTH), 40);
         mainPanel.add(capacityPanel);
 
         capacityField.addPropertyChangeListener("value", new PropertyChangeListener() {
@@ -152,17 +152,17 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         // statistics
         // elapsed time
         timeLabel = new JLabel("Elapsed Time: 0 µs");
-        timeLabel.setFont(new Font(null, Font.BOLD, 19));
+        timeLabel.setFont(new Font(null, Font.BOLD, 15));
         timeLabel.setForeground(colorConcept.TEXT);
 
         // comparisons
         compLabel = new JLabel("Comparisons: 0");
-        compLabel.setFont(new Font(null, Font.BOLD, 19));
+        compLabel.setFont(new Font(null, Font.BOLD, 15));
         compLabel.setForeground(colorConcept.TEXT);
 
         // swapping
         swapLabel = new JLabel("Swaps: 0");
-        swapLabel.setFont(new Font(null, Font.BOLD, 19));
+        swapLabel.setFont(new Font(null, Font.BOLD, 15));
         swapLabel.setForeground(colorConcept.TEXT);
 
         // statistic panel
@@ -172,7 +172,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         inforPanel.add(compLabel);
         inforPanel.add(swapLabel);
         inforPanel.setBackground(colorConcept.BACKGROUND);
-        inforPanel.setBounds(1500, 790, 350, 150);
+        inforPanel.setBounds((int)(0.76 * WIDTH) + 120, (int)(0.73 * HEIGHT) + 50, 200, 110);
         mainPanel.add(inforPanel);
 
         // Sort ChoiceBox
@@ -188,16 +188,16 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
 
         sortLabel = new JLabel("Choose a Sorting Algorithm:");
         sortLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        sortLabel.setFont(new Font(null, Font.BOLD, 16));
+        sortLabel.setFont(new Font(null, Font.BOLD, 12));
         sortLabel.setForeground(colorConcept.TEXT);
 
         JComboBox<String> comboBox = new JComboBox<>(sortOptions);
-        comboBox.setPreferredSize(new Dimension(150, 50));
+        comboBox.setPreferredSize(new Dimension(120, 35));
 
         // Chỉnh màu nền của JComboBox
         comboBox.setBackground(colorConcept.CANVAS_BACKGROUND);
         comboBox.setForeground(colorConcept.TEXT);
-        comboBox.setFont(new Font(null, Font.PLAIN, 17));
+        comboBox.setFont(new Font(null, Font.PLAIN, 14));
 
         comboBox.addActionListener(new ActionListener() {
             @Override
@@ -215,6 +215,8 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
                             sorter.mergeSort();
                             break;
                         case "QuickSort":
+                            // System.out.println("Da chon quicksort");
+                            System.out.println(sorter.getFPS());
                             sorter.quickSort();
                             break;
                         case "RadixSort":
@@ -237,7 +239,7 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
         sortPanel.add(sortLabel);
         sortPanel.add(comboBox);
 
-        sortPanel.setBounds(1200, 820, 250, 80);
+        sortPanel.setBounds((int)(0.61 * WIDTH) + 95, (int)(0.75 * HEIGHT) + 50, 160, 60);
         mainPanel.add(sortPanel);
 
     }

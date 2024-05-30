@@ -7,6 +7,7 @@ import java.security.DrbgParameters.Capability;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
@@ -46,12 +47,12 @@ public class sorter {
 
     public sorter(int capacity, int fps, SortedListener listener){
         this.capacity = capacity;
-        this.speed = (int) (1000.0/fps);
+        this.speed = (int) (5000.0/fps);
         this.listener = listener;
         startTime = time = comp = swapping = 0;
 
         originalColor = colorConcept.BAR_WHITE;
-        comparingColor = colorConcept.BAR_YELLOW;
+        comparingColor = colorConcept.BAR_GREEN;
         swappingColor = colorConcept.BAR_RED;
         
         bs = listener.getBufferStrategy();
@@ -87,28 +88,30 @@ public class sorter {
         bs.show();
         g.dispose();
     }
-    public void createNearlySortArray(int canvasWidth, int canvasHeight){
+    public void createNearlySortArray(int canvasWidth, int canvasHeight) {
         array = new Integer[capacity];
         bars = new bars[capacity];
         hasArray = true;
-        
-        double x = PADDING; // toa do ben tren, trai
-        int y = canvasHeight - PADDING; // toa do ben tren, trai
     
-        double width = (double) (canvasWidth - PADDING*2) / capacity;
-        
+        double x = PADDING; // tọa độ bên trái trên
+        int y = canvasHeight - PADDING; // tọa độ bên trái dưới
+    
+        double width = (double) (canvasWidth - PADDING * 2) / capacity;
+    
         g = bs.getDrawGraphics();
         g.setColor(colorConcept.CANVAS_BACKGROUND);
         g.fillRect(0, 0, canvasWidth, canvasHeight);
-        
-        int baseValue = MIN_BAR_HEIGHT;  
+    
+        int baseValue = MIN_BAR_HEIGHT;
         bars bar;
-        for(int i = 0; i < array.length; i++){
-            int value = baseValue + i * ((MAX_BAR_HEIGHT - MIN_BAR_HEIGHT) / capacity);
-           
-            if (i % 10 == 0 && i > 0) {
-                value += (new Random()).nextInt(10) - 5; // random fluctuation
-            }
+        Random random = new Random();
+        for (int i = 0; i < array.length; i++) {
+            int coef = i + random.nextInt(11) - 5;
+            int value = baseValue + coef *((MAX_BAR_HEIGHT - MIN_BAR_HEIGHT) / capacity);
+    
+            // Thêm biến đổi nhỏ ngẫu nhiên trong khoảng từ -20 đến 20
+            value += random.nextInt(41) - 20; // biến đổi ngẫu nhiên từ -20 đến 20
+    
             array[i] = value;
             bar = new bars((int)x, y, (int)width, value, originalColor);
             bar.draw(g);
@@ -119,6 +122,8 @@ public class sorter {
         bs.show();
         g.dispose();
     }
+    
+    
     
     public void createReverseArray(int canvasWidth, int canvasHeight){
         array = new Integer[capacity];
@@ -549,6 +554,7 @@ public void bubbleSort() {
         protected void done() {
             // Ensure the finish animation runs on the EDT
             SwingUtilities.invokeLater(() -> {
+                System.out.print("Da vao done");
                 finishAnimation();
                 listener.onArraySorted(time, comp, swapping);
             });
@@ -582,7 +588,7 @@ private void repaintArray() {
 public void initializeBufferStrategy() {
     if (bs == null) {
         myCanvas canvas = listener.getCanvas(); // Giả sử bạn có phương thức này trong listener để lấy myCanvas
-        canvas.createBufferStrategy(3); // Sử dụng triple buffering
+        canvas.createBufferStrategy(4); // Sử dụng triple buffering
         bs = canvas.getBufferStrategy();
     }
 }
@@ -726,7 +732,7 @@ public void initializeBufferStrategy() {
 
     /*Animation*/
     public Color getBarColor(int value){
-        int n = (int) (array.length / 5.0);
+        int n = (int) (array.length / 7.0);
         if(value < n)
             return colorConcept.BAR_RED;
         else if(value < n * 2)
@@ -751,9 +757,14 @@ public void initializeBufferStrategy() {
         // clear the bar
         bars[i].clear(g);
         bars[j].clear(g);
-
+        
         // swap the drawings
         bars[j].setValue(bars[i].getValue());
+        // try {
+        //     TimeUnit.MILLISECONDS.sleep(speed);
+        // } catch (Exception ex) {
+        //     System.out.println("Exception ex!");
+        // }
         bars[i].setValue(temp);
 
         colorPair(i, j, swappingColor);
@@ -769,14 +780,14 @@ public void initializeBufferStrategy() {
         bars[j].draw(g);
 
         bs.show();
-
+      
         // delay
         try {
             TimeUnit.MILLISECONDS.sleep(speed);
         } catch (Exception ex) {
             System.out.println("Exception ex!");
         }
-
+        checkPause();
         // put back to original color
         bars[i].setColor(color1);
         bars[i].draw(g);
@@ -800,6 +811,9 @@ public void initializeBufferStrategy() {
         // show elapsed time and comparisons
         listener.onArraySorted(time, comp, swapping);
     }
+ 
+    
+    
     public void drawArray()
     {
         if (!hasArray)
@@ -827,7 +841,11 @@ public void initializeBufferStrategy() {
     }
     public void setFPS(int fps)
     {
-        this.speed = (int) (1000.0/fps);
+        this.speed = (int) (10000.0/fps);
+    }
+    public int getFPS()
+    {
+        return this.speed;
     }
     public interface SortedListener {
         void onArraySorted(long elapsedTime, int comparison, int swapping);

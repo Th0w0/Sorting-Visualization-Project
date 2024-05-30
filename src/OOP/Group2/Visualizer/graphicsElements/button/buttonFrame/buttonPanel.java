@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 
 public class buttonPanel extends JPanel{
     public static final long serialVersionUID = 1L;
-    private static final int BUTTON_WIDTH = 260, BUTTON_HEIGHT = 78;
+    private static final int BUTTON_WIDTH = 200, BUTTON_HEIGHT = 60;
     private JLabel[] buttons;
     private ButtonListener listener;
     private int number = 9;
@@ -32,11 +32,11 @@ public class buttonPanel extends JPanel{
         initBackButton(buttons[6], 6);
         setLayout(null);
         for (int i = 0; i < buttons.length; i++) {
-            if (i == 6) buttons[i].setBounds(30, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
-            else if (i == 5) buttons[i].setBounds(610, 160, BUTTON_WIDTH, BUTTON_HEIGHT);
-            else if (i == 4) buttons[i].setBounds(610, 70, BUTTON_WIDTH, BUTTON_HEIGHT);
-            else if (i > 1) buttons[i].setBounds(30 + (BUTTON_WIDTH + 30) * (i - 2), 160, BUTTON_WIDTH, BUTTON_HEIGHT);
-            else buttons[i].setBounds(30+ (BUTTON_WIDTH + 30) * i, 70, BUTTON_WIDTH, BUTTON_HEIGHT);
+            if (i == 6) buttons[i].setBounds(20, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else if (i == 5) buttons[i].setBounds(440, 105, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else if (i == 4) buttons[i].setBounds(440, 45, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else if (i > 1) buttons[i].setBounds(20 + (BUTTON_WIDTH + 15) * (i - 2), 105, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else buttons[i].setBounds(20 + (BUTTON_WIDTH + 15) * i, 45, BUTTON_WIDTH, BUTTON_HEIGHT);
             add(buttons[i]);
         }
 
@@ -74,7 +74,7 @@ public class buttonPanel extends JPanel{
     }
     private void initBackButton(JLabel button, int id) {
         button.setText("< Back to menu");
-        Font buttonFont = button.getFont().deriveFont(Font.BOLD, 22f);
+        Font buttonFont = button.getFont().deriveFont(Font.BOLD, 18f);
         Dimension buttonSize = new Dimension(200, 80);
         button.setFont(buttonFont);
         button.setPreferredSize(buttonSize);
