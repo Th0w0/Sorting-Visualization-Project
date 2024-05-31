@@ -304,6 +304,7 @@ public class sorter {
                 bars[i].setColor(comparingColor);
             }
             bars[i].draw(g);
+            repaintArray();
             bs.show();
             try {
                 TimeUnit.MILLISECONDS.sleep(speed);
@@ -335,8 +336,8 @@ public class sorter {
     
                     countRadixSort(array, array.length, exp, comp);
                     colo++;
-                    publish();
                 }
+                publish();
     
                 g.dispose();
                 return null;
@@ -437,69 +438,91 @@ public class sorter {
         if (!isCreated())
             return;
     
-        g = bs.getDrawGraphics();
+        initializeBufferStrategy(); // Đảm bảo BufferStrategy được thiết lập
     
-        // calculate elapsed time
-        startTime = System.nanoTime();
-        MergeSort.mergeSort(array.clone());
-        time = System.nanoTime() - startTime;
+        sortWorker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                g = bs.getDrawGraphics();
     
-        comp = swapping = 0;
+                // calculate elapsed time
+                startTime = System.nanoTime();
+                MergeSort.mergeSort(array.clone());
+                time = System.nanoTime() - startTime;
     
-        mergeSort(0, array.length-1);
+                comp = swapping = 0;
     
-        finishAnimation();
-        g.dispose();
+                mergeSort(0, array.length - 1);
+                publish();
+                g.dispose();
+                return null;
+            }
+    
+            @Override
+            protected void process(List<Void> chunks) {
+                repaintArray();
+            }
+    
+            @Override
+            protected void done() {
+                SwingUtilities.invokeLater(() -> {
+                    finishAnimation();
+                    listener.onArraySorted(time, comp, swapping);
+                });
+            }
+        };
+    
+        sortWorker.execute();
     }
     
-    // recursive mergeSort
     // recursive mergeSort
     private void mergeSort(int left, int right) {
         if (left >= right)
             return;
-
+    
         // find the middle
         int middle = (right + left) / 2;
-
+    
         checkPause(); // Check for pause
-
+    
         // sort the left half
         mergeSort(left, middle);
-
+    
         checkPause(); // Check for pause
-
+    
         // sort the second half
-        mergeSort(middle+1, right);
-
+        mergeSort(middle + 1, right);
+    
         checkPause(); // Check for pause
-
+    
         // merge them
         merge(left, middle, right);
     }
+    
     // merge for mergeSort
     private void merge(int left, int middle, int right) {
         Color mergeColor = getBarColor(middle);
-
+    
         // number of items in the first half
         int n1 = middle - left + 1;
         int n2 = right - middle;  // second half
-
+    
         // create array for those parts
         int[] leftArr = new int[n1];
         for (int i = 0; i < n1; i++)
-            leftArr[i] = array[left+i];
-
+            leftArr[i] = array[left + i];
+    
         int[] rightArr = new int[n2];
         for (int i = 0; i < n2; i++)
-            rightArr[i] = array[middle+i+1];
-
+            rightArr[i] = array[middle + i + 1];
+    
         // starting index
         int l = 0, r = 0, k = left;  // k: for the original array
-
+    
         // merge
         while (l < n1 && r < n2) {
             checkPause(); // Check for pause
-
+    
             bars bar = bars[k];
             bar.clear(g);
             if (leftArr[l] < rightArr[r]) {
@@ -511,21 +534,22 @@ public class sorter {
                 bar.setValue(rightArr[r]);
                 r++;
             }
-
+    
             bar.setColor(mergeColor);
             colorBar(k, swappingColor);
             k++;
             comp++;
             swapping++;
+            repaintArray();
         }
-
+    
         // add the remaining in the two arrays if there are any
         while (l < n1) {
             checkPause(); // Check for pause
-
+    
             bars bar = bars[k];
             bar.clear(g);
-
+    
             array[k] = leftArr[l];
             bar.setValue(leftArr[l]);
             bar.setColor(mergeColor);
@@ -534,13 +558,13 @@ public class sorter {
             k++;
             swapping++;
         }
-
+    
         while (r < n2) {
             checkPause(); // Check for pause
-
+    
             bars bar = bars[k];
             bar.clear(g);
-
+    
             array[k] = rightArr[r];
             bar.setValue(rightArr[r]);
             bar.setColor(mergeColor);
@@ -550,6 +574,7 @@ public class sorter {
             swapping++;
         }
     }
+    
 
     /* BUBBLE SORT */
     public void bubbleSort() {
@@ -611,19 +636,41 @@ public class sorter {
         if (!isCreated())
             return;
     
-        g = bs.getDrawGraphics();
+        initializeBufferStrategy(); // Đảm bảo BufferStrategy được thiết lập
     
-        // calculate elapsed time
-        startTime = System.nanoTime();
-        QuickSort.quickSort(array.clone());
-        time = System.nanoTime() - startTime;
+        sortWorker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                g = bs.getDrawGraphics();
     
-        comp = swapping = 0;
+                // calculate elapsed time
+                startTime = System.nanoTime();
+                QuickSort.quickSort(array.clone());
+                time = System.nanoTime() - startTime;
     
-        quickSort(array, 0, array.length - 1);
+                comp = swapping = 0;
     
-        finishAnimation();
-        g.dispose();
+                quickSort(array, 0, array.length - 1);
+    
+                g.dispose();
+                return null;
+            }
+    
+            @Override
+            protected void process(List<Void> chunks) {
+                repaintArray();
+            }
+    
+            @Override
+            protected void done() {
+                SwingUtilities.invokeLater(() -> {
+                    finishAnimation();
+                    listener.onArraySorted(time, comp, swapping);
+                });
+            }
+        };
+    
+        sortWorker.execute();
     }
     
     private void quickSort(Integer arr[], int low, int high) {
@@ -656,82 +703,129 @@ public class sorter {
         return i + 1;
     }
     
+    
     /* ==============SELECTION SORT============== */
     public void selectionSort() {
         if (!isCreated())
             return;
     
-        g = bs.getDrawGraphics();
+        initializeBufferStrategy(); // Đảm bảo BufferStrategy được thiết lập
     
-        // calculate elapsed time
-        startTime = System.nanoTime();
-        SelectionSort.selectionSort(array.clone());
-        time = System.nanoTime() - startTime;
+        sortWorker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                g = bs.getDrawGraphics();
     
-        comp = swapping = 0;
+                // calculate elapsed time
+                startTime = System.nanoTime();
+                SelectionSort.selectionSort(array.clone());
+                time = System.nanoTime() - startTime;
     
-        int n = array.length;
+                comp = swapping = 0;
     
-        for (int i = 0; i < n-1; i++) {
-            checkPause(); // Check for pause
+                int n = array.length;
+                for (int i = 0; i < n-1; i++) {
+                    checkPause(); // Check for pause
     
-            int min_idx = i;
-            for (int j = i+1; j < n; j++) {
-                checkPause(); // Check for pause
+                    int min_idx = i;
+                    for (int j = i+1; j < n; j++) {
+                        checkPause(); // Check for pause
     
-                if (array[j] < array[min_idx]) {
-                    min_idx = j;
+                        if (array[j] < array[min_idx]) {
+                            min_idx = j;
+                        }
+                        comp++;
+                    }
+    
+                    swap(min_idx, i);
+                    swapping++;
+                    publish();
                 }
-                comp++;
+    
+                g.dispose();
+                return null;
             }
     
-            swap(min_idx, i);
-            swapping++;
-        }
+            @Override
+            protected void process(List<Void> chunks) {
+                repaintArray();
+            }
     
-        finishAnimation();
-        g.dispose();
+            @Override
+            protected void done() {
+                SwingUtilities.invokeLater(() -> {
+                    finishAnimation();
+                    listener.onArraySorted(time, comp, swapping);
+                });
+            }
+        };
+    
+        sortWorker.execute();
     }
+    
     
     /*==============SHELL SORT============== */
     public void shellSort() {
         if (!isCreated())
             return;
     
-        g = bs.getDrawGraphics();
+        initializeBufferStrategy(); // Đảm bảo BufferStrategy được thiết lập
     
-        // calculate elapsed time
-        startTime = System.nanoTime();
-        ShellSort.shellSort(array.clone());
-        time = System.nanoTime() - startTime;
+        sortWorker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                g = bs.getDrawGraphics();
     
-        comp = swapping = 0;
+                // calculate elapsed time
+                startTime = System.nanoTime();
+                ShellSort.shellSort(array.clone());
+                time = System.nanoTime() - startTime;
     
-        int n = array.length;
+                comp = swapping = 0;
     
-        for (int gap = n/2; gap > 0; gap /= 2) {
-            for (int i = gap; i < n; i += 1) {
-                checkPause(); // Check for pause
+                int n = array.length;
+                for (int gap = n/2; gap > 0; gap /= 2) {
+                    for (int i = gap; i < n; i += 1) {
+                        checkPause(); // Check for pause
     
-                int temp = array[i];
+                        int temp = array[i];
     
-                int j;
-                for (j = i; j >= gap && array[j - gap] > temp; j -= gap) {
-                    checkPause(); // Check for pause
+                        int j;
+                        for (j = i; j >= gap && array[j - gap] > temp; j -= gap) {
+                            checkPause(); // Check for pause
     
-                    swap(j, j-gap);
-                    swapping++;
-                    comp++;
+                            swap(j, j-gap);
+                            swapping++;
+                            comp++;
+                            publish();
+                        }
+    
+                        array[j] = temp;
+                        swapping++;
+                    }
                 }
     
-                array[j] = temp;
-                swapping++;
+                g.dispose();
+                return null;
             }
-        }
     
-        finishAnimation();
-        g.dispose();
+            @Override
+            protected void process(List<Void> chunks) {
+                repaintArray();
+            }
+    
+            @Override
+            protected void done() {
+                SwingUtilities.invokeLater(() -> {
+                    finishAnimation();
+                    listener.onArraySorted(time, comp, swapping);
+                });
+            }
+        };
+    
+        sortWorker.execute();
     }
+    
     
 
 
@@ -786,7 +880,7 @@ public class sorter {
 
         bars[j].setColor(color);
         bars[j].draw(g);
-
+        repaintArray();
         bs.show();
       
         // delay
@@ -799,7 +893,7 @@ public class sorter {
         // put back to original color
         bars[i].setColor(color1);
         bars[i].draw(g);
-
+        repaintArray();
         bars[j].setColor(color2);
         bars[j].draw(g);
 
@@ -814,6 +908,7 @@ public class sorter {
             bars[i].setColor(getBarColor(i));
             bars[i].draw(g);
             bs.show();
+            repaintArray();
         }
 
         // show elapsed time and comparisons

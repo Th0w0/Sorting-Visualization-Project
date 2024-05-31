@@ -215,8 +215,6 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
                             sorter.mergeSort();
                             break;
                         case "QuickSort":
-                            // System.out.println("Da chon quicksort");
-                            System.out.println(sorter.getFPS());
                             sorter.quickSort();
                             break;
                         case "RadixSort":
@@ -261,11 +259,9 @@ public class menuSortingBasic extends JFrame implements  sorter.SortedListener,
                 sorter.createNearlySortArray(canvas.getWidth(), canvas.getHeight());
                 break;
             case 4:
-                System.out.println("Da nhan vao pause");
                 sorter.pause();
                 break;
             case 5:
-                System.out.println("Da nhan vao resume");
                 sorter.resume();
                 break;
             case 6: //back
