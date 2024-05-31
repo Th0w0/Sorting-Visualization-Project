@@ -367,71 +367,89 @@ public class sorter {
         if (!isCreated())
             return;
     
-        // get graphics
-        g = bs.getDrawGraphics();
+        initializeBufferStrategy(); // Đảm bảo BufferStrategy được thiết lập
     
-        // calculate elapsed time
-        startTime = System.nanoTime();
-        CountingSort.countingSort(array.clone());
-        time = System.nanoTime() - startTime;
+        sortWorker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                g = bs.getDrawGraphics();
     
-        comp = swapping = 0;
-        int N = array.length;
-        int M = 0;
+                // calculate elapsed time
+                startTime = System.nanoTime();
+                CountingSort.countingSort(array.clone());
+                time = System.nanoTime() - startTime;
     
-        for (int i = 0; i < N; i++) {
-            M = Math.max(M, array[i]);
-        }
+                comp = swapping = 0;
+                int N = array.length;
+                int M = 0;
     
-        int[] countArray = new int[M + 1];
+                for (int i = 0; i < N; i++) {
+                    M = Math.max(M, array[i]);
+                }
     
-        for (int i = 0; i < N; i++) {
-            checkPause(); // Check for pause
+                int[] countArray = new int[M + 1];
     
-            countArray[array[i]]++;
-            swapping++;
-        }
+                for (int i = 0; i < N; i++) {
+                    checkPause(); // Check for pause
+                    countArray[array[i]]++;
+                    swapping++;
+                }
     
-        for (int i = 1; i <= M; i++) {
-            checkPause(); // Check for pause
+                for (int i = 1; i <= M; i++) {
+                    checkPause(); // Check for pause
+                    countArray[i] += countArray[i - 1];
+                    swapping++;
+                }
     
-            countArray[i] += countArray[i - 1];
-            swapping++;
-        }
+                int[] outputArray = new int[N];
     
-        int[] outputArray = new int[N];
+                for (int i = N - 1; i >= 0; i--) {
+                    checkPause(); // Check for pause
+                    outputArray[countArray[array[i]] - 1] = array[i];
+                    swapping++;
+                    countArray[array[i]]--;
+                }
     
-        for (int i = N - 1; i >= 0; i--) {
-            checkPause(); // Check for pause
+                for (int i = 0; i < N; i++) {
+                    checkPause(); // Check for pause
+                    array[i] = outputArray[i];
+                    swapping++;
+                    bars[i].clear(g);
+                    bars[i].setValue(array[i]);
+                    if (colo % 2 == 0) {
+                        bars[i].setColor(swappingColor);
+                    } else {
+                        bars[i].setColor(comparingColor);
+                    }
+                    bars[i].draw(g);
+                    bs.show();
+                    publish();
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(speed);
+                    } catch (Exception ex) {}
+                }
     
-            outputArray[countArray[array[i]] - 1] = array[i];
-            swapping++;
-            countArray[array[i]]--;
-        }
-    
-        for (int i = 0; i < N; i++) {
-            checkPause(); // Check for pause
-    
-            array[i] = outputArray[i];
-            swapping++;
-            bars[i].clear(g);
-            bars[i].setValue(array[i]);
-            if (colo % 2 == 0) {
-                bars[i].setColor(swappingColor);
-            } else {
-                bars[i].setColor(comparingColor);
+                g.dispose();
+                return null;
             }
-            bars[i].draw(g);
-            bs.show();
-            try {
-                TimeUnit.MILLISECONDS.sleep(speed);
-            } catch (Exception ex) {}
-        }
     
-        finishAnimation();
+            @Override
+            protected void process(List<Void> chunks) {
+                repaintArray();
+            }
     
-        g.dispose();
+            @Override
+            protected void done() {
+                SwingUtilities.invokeLater(() -> {
+                    finishAnimation();
+                    listener.onArraySorted(time, comp, swapping);
+                });
+            }
+        };
+    
+        sortWorker.execute();
     }
+    
     
     /*==================MERGE SORT================== */
     public void mergeSort() {

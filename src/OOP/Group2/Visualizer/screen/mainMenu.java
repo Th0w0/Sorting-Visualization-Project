@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import OOP.Group2.Visualizer.graphicsElements.env;
 //import internal
 import OOP.Group2.Visualizer.graphicsElements.color.*;
 import OOP.Group2.Visualizer.screen.menu.*;
@@ -26,7 +27,7 @@ public class mainMenu extends JFrame{
         setTitle("TEAM 2's Sorting Visualizer");
 
         // Load GIF
-        ImageIcon gifIcon = new ImageIcon("D:\\code\\SortingDemonstrate\\src\\OOP\\Group2\\Visualizer\\graphicsElements\\background\\menuBackground.gif");
+        ImageIcon gifIcon = new ImageIcon(env.MENU_BACKGROUND_PATH);
         JLabel gifLabel = new JLabel(gifIcon);
         gifLabel.setLayout(new BorderLayout());
 

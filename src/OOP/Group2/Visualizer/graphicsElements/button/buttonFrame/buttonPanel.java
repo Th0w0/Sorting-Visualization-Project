@@ -1,5 +1,6 @@
 package OOP.Group2.Visualizer.graphicsElements.button.buttonFrame;
 
+import OOP.Group2.Visualizer.graphicsElements.env;
 import OOP.Group2.Visualizer.graphicsElements.color.colorConcept;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -69,7 +70,7 @@ public class buttonPanel extends JPanel{
     public void setButtonIcon(JLabel button, String iconName ){
         String currentDirectory = System.getProperty("user.dir"); // Lấy đường dẫn thư mục hiện tại của ứng dụng
         // System.out.println(currentDirectory);
-        String path = String.format("%s/src/OOP/Group2/Visualizer/graphicsElements/button/buttonImage/%s.png", currentDirectory, iconName); //dynamic đường dẫn
+        String path = String.format(env.BUTTON_PATH, currentDirectory, iconName); //dynamic đường dẫn
         button.setIcon(new ImageIcon(path));
     }
     private void initBackButton(JLabel button, int id) {
