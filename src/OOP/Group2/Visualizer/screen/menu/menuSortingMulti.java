@@ -126,5 +126,10 @@ public class menuSortingMulti extends JFrame implements PropertyChangeListener,
         return bs;
     }
 
+    @Override
+    public myCanvas getCanvas() {
+        return null;
     }
+
+}
 

@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 
 public class buttonPanel extends JPanel{
     public static final long serialVersionUID = 1L;
-    private static final int BUTTON_WIDTH = 200, BUTTON_HEIGHT = 60;
+    private static final int BUTTON_WIDTH = 150, BUTTON_HEIGHT = 45;
     private JLabel[] buttons;
     private ButtonListener listener;
     private int number = 9;
@@ -34,10 +34,10 @@ public class buttonPanel extends JPanel{
         setLayout(null);
         for (int i = 0; i < buttons.length; i++) {
             if (i == 6) buttons[i].setBounds(20, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
-            else if (i == 5) buttons[i].setBounds(440, 105, BUTTON_WIDTH, BUTTON_HEIGHT);
-            else if (i == 4) buttons[i].setBounds(440, 45, BUTTON_WIDTH, BUTTON_HEIGHT);
-            else if (i > 1) buttons[i].setBounds(20 + (BUTTON_WIDTH + 15) * (i - 2), 105, BUTTON_WIDTH, BUTTON_HEIGHT);
-            else buttons[i].setBounds(20 + (BUTTON_WIDTH + 15) * i, 45, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else if (i == 5) buttons[i].setBounds(350, 95, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else if (i == 4) buttons[i].setBounds(350, 40, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else if (i > 1) buttons[i].setBounds(20 + (BUTTON_WIDTH + 15) * (i - 2), 95, BUTTON_WIDTH, BUTTON_HEIGHT);
+            else buttons[i].setBounds(20 + (BUTTON_WIDTH + 15) * i, 40, BUTTON_WIDTH, BUTTON_HEIGHT);
             add(buttons[i]);
         }
 
