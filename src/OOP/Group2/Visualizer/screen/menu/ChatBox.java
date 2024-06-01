@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import OOP.Group2.Visualizer.screen.menu.*;
 public class ChatBox extends JFrame {
 
     private JPanel contentPane;
@@ -49,7 +49,9 @@ public class ChatBox extends JFrame {
                 String userInput = textField.getText();
                 if (!userInput.isEmpty()) {
                     chatArea.append("You: " + userInput + "\n");
+                    String answer = ChatGPTAPI.chatGPT(userInput);
                     textField.setText("");
+                    chatArea.append("BACH KHOA TOAN THU: " + answer + "\n");
                 }
             }
         });
