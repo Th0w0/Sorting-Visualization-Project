@@ -7,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import OOP.Group2.Visualizer.screen.menu.*;
 public class ChatBox extends JFrame {
 
     private JPanel contentPane;
@@ -29,6 +28,7 @@ public class ChatBox extends JFrame {
         chatArea.setWrapStyleWord(true);
         chatArea.setFont(new Font(null, Font.BOLD, 13));
         chatArea.setForeground(colorConcept.TEXT);
+        chatArea.setBackground(colorConcept.CANVAS_BACKGROUND);
         JScrollPane scrollPane = new JScrollPane(chatArea);
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
@@ -40,24 +40,31 @@ public class ChatBox extends JFrame {
         textField = new JTextField();
         panel.add(textField, BorderLayout.CENTER);
         textField.setFont(new Font(null, Font.BOLD, 11));
+        textField.setBackground(colorConcept.CANVAS_BACKGROUND);
         textField.setForeground(colorConcept.TEXT);
         textField.setColumns(10);
 
         JButton btnSend = new JButton("Send");
+        btnSend.setBackground(colorConcept.TEXT_YELLOW);
+        btnSend.setForeground(colorConcept.TEXT);
+        btnSend.setFocusable(false);
         btnSend.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String userInput = textField.getText();
                 if (!userInput.isEmpty()) {
-                    chatArea.append("You: " + userInput + "\n");
+                    chatArea.append("You: " + userInput + "\n\n");
                     String answer = ChatGPTAPI.chatGPT(userInput);
                     textField.setText("");
-                    chatArea.append("BACH KHOA TOAN THU: " + answer + "\n");
+                    chatArea.append("BACH KHOA TOAN THU: " + answer + "\n\n");
                 }
             }
         });
         panel.add(btnSend, BorderLayout.EAST);
 
         JButton btnClear = new JButton("Clear");
+        btnClear.setFocusable(false);
+        btnClear.setBackground(colorConcept.TEXT_YELLOW);
+        btnClear.setForeground(colorConcept.TEXT);
         btnClear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 chatArea.setText("");

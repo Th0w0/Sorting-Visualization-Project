@@ -2,16 +2,17 @@ package OOP.Group2.Visualizer.screen;
 
 
 //import libaries
+
+import OOP.Group2.Visualizer.graphicsElements.color.colorConcept;
+import OOP.Group2.Visualizer.graphicsElements.env;
+import OOP.Group2.Visualizer.screen.menu.menuHelping;
+import OOP.Group2.Visualizer.screen.menu.menuSortingBasic;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import OOP.Group2.Visualizer.graphicsElements.env;
-//import internal
-import OOP.Group2.Visualizer.graphicsElements.color.*;
-import OOP.Group2.Visualizer.screen.menu.*;
 
 
 public class mainMenu extends JFrame{
@@ -56,6 +57,7 @@ public class mainMenu extends JFrame{
 
         //add basic sort button 
         sortBasicButton = new JButton("Basic Sort");
+        sortBasicButton.setFocusable(false);
         sortBasicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -63,8 +65,9 @@ public class mainMenu extends JFrame{
                 dispose();
             }
         });
-        //add multi sort button 
+        //add multi sort button
         sortMultiButton = new JButton("Multiple Sort");
+        sortMultiButton.setFocusable(false);
         sortMultiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -75,6 +78,7 @@ public class mainMenu extends JFrame{
 
         //add help button
         helpMenuButton = new JButton("Help");
+        helpMenuButton.setFocusable(false);
         helpMenuButton.addActionListener(new ActionListener() {
             @Override 
             public void actionPerformed(ActionEvent e){
@@ -85,6 +89,7 @@ public class mainMenu extends JFrame{
 
         //add quit button
         quitButton = new JButton("Quit");
+        quitButton.setFocusable(false);
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){

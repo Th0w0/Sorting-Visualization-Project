@@ -226,8 +226,11 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
         sortPanel.setBounds(680, 628, 140, 60);
         mainPanel.add(sortPanel);
 
-        JButton chatBoxButton = new JButton("Chatbox");
+        JButton chatBoxButton = new JButton("CHATBOX");
         chatBoxButton.setBounds(20, 580, 100, 30);
+        chatBoxButton.setBackground(colorConcept.TEXT_YELLOW);
+        chatBoxButton.setFocusable(false);
+        chatBoxButton.setForeground(colorConcept.TEXT);
         chatBoxButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
