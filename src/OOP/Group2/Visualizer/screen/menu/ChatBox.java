@@ -53,6 +53,8 @@ public class ChatBox extends JFrame {
         contentPane.add(loadingLabel, BorderLayout.NORTH);
 
         JButton btnSend = new JButton("Send");
+        btnSend.setBackground(colorConcept.TEXT_YELLOW);
+        btnSend.setForeground(colorConcept.TEXT);
         btnSend.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String userInput = textField.getText();
@@ -79,6 +81,8 @@ public class ChatBox extends JFrame {
         panel.add(btnSend, BorderLayout.EAST);
 
         JButton btnClear = new JButton("Clear");
+        btnClear.setBackground(colorConcept.TEXT_YELLOW);
+        btnClear.setForeground(colorConcept.TEXT);
         btnClear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 chatPane.setText("");
