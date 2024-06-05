@@ -25,7 +25,9 @@ public class mainMenu extends JFrame{
         setSize(new Dimension(WIDTH, HEIGHT));
         setLocationRelativeTo(null);
         setTitle("TEAM 2's Sorting Visualizer");
-
+        ImageIcon logoIcon = new ImageIcon(env.AVATAR_APP);
+        Image logo = logoIcon.getImage(); // Extract the Image from ImageIcon
+        setIconImage(logo); 
         // Load GIF
         ImageIcon gifIcon = new ImageIcon(env.MENU_BACKGROUND_PATH);
         JLabel gifLabel = new JLabel(gifIcon);
@@ -56,6 +58,7 @@ public class mainMenu extends JFrame{
 
         //add basic sort button 
         sortBasicButton = new JButton("Basic Sort");
+        sortBasicButton.setFocusable(false);
         sortBasicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -63,18 +66,10 @@ public class mainMenu extends JFrame{
                 dispose();
             }
         });
-        //add multi sort button 
-        sortMultiButton = new JButton("Multiple Sort");
-        sortMultiButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                // new menuSortingMulti().setVisible(true);
-                dispose();
-            }
-        });
 
         //add help button
         helpMenuButton = new JButton("Help");
+        helpMenuButton.setFocusable(false);
         helpMenuButton.addActionListener(new ActionListener() {
             @Override 
             public void actionPerformed(ActionEvent e){
@@ -85,6 +80,7 @@ public class mainMenu extends JFrame{
 
         //add quit button
         quitButton = new JButton("Quit");
+        quitButton.setFocusable(false);
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -97,14 +93,12 @@ public class mainMenu extends JFrame{
         });
         
         //set font, size for button
-        Font buttonnFont = sortBasicButton.getFont().deriveFont(Font.PLAIN, 30f);
+        Font buttonnFont = sortBasicButton.getFont().deriveFont(Font.BOLD, 30f);
         Dimension buttonSize = new Dimension(320,75);
         sortBasicButton.setFont(buttonnFont);
-        sortMultiButton.setFont(buttonnFont);
         helpMenuButton.setFont(buttonnFont);
         quitButton.setFont(buttonnFont);
         sortBasicButton.setPreferredSize(buttonSize);
-        sortMultiButton.setPreferredSize(buttonSize);
         helpMenuButton.setPreferredSize(buttonSize);
         quitButton.setPreferredSize(buttonSize);
 
@@ -118,8 +112,6 @@ public class mainMenu extends JFrame{
         gbc.insets = new Insets(10, 0, 10, 0);
 
         buttonPanel.add(sortBasicButton,gbc);
-        gbc.gridy++;
-        buttonPanel.add(sortMultiButton,gbc);
         gbc.gridy++;
         buttonPanel.add(helpMenuButton,gbc);
         gbc.gridy++;

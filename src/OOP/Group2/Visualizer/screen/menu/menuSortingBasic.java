@@ -15,6 +15,7 @@ import java.awt.image.BufferStrategy;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
+import OOP.Group2.Visualizer.graphicsElements.env;
 
 public class menuSortingBasic extends JFrame implements sorter.SortedListener,
         buttonPanel.ButtonListener, myCanvas.VisualizerProvider {
@@ -31,7 +32,7 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
     private myCanvas canvas;
     private sorter sorter;
     private SwingWorker<Void, Void> sortWorker;
-    private ChatBox chatBox;
+    private chatBox chatBox;
 
     public menuSortingBasic() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +43,9 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
         setResizable(false);
         setBackground(colorConcept.BACKGROUND);
         setTitle("TEAM 2's Sorting");
+        ImageIcon logoIcon = new ImageIcon(env.AVATAR_APP);
+        Image logo = logoIcon.getImage(); // Extract the Image from ImageIcon
+        setIconImage(logo); 
         initialize();
     }
 
@@ -79,7 +83,7 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
         sorter = new sorter(CAPACITY, FPS, this);
         sorter.createRandomArray(canvas.getWidth(), canvas.getHeight());
 
-        JLabel fpsLabel = new JLabel("FPS");
+        JLabel fpsLabel = new JLabel("Capacity");
         fpsLabel.setForeground(colorConcept.TEXT);
         fpsLabel.setFont(new Font(null, Font.BOLD, 13));
 
@@ -110,7 +114,7 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
             }
         });
 
-        JLabel capacityLabel = new JLabel("Capacity");
+        JLabel capacityLabel = new JLabel("FPS");
         capacityLabel.setForeground(colorConcept.TEXT);
         capacityLabel.setFont(new Font(null, Font.BOLD, 13));
 
@@ -232,7 +236,7 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (chatBox == null || !chatBox.isDisplayable()) {
-                    chatBox = new ChatBox();
+                    chatBox = new chatBox();
                     chatBox.setLocation(menuSortingBasic.this.getX() + menuSortingBasic.this.getWidth(), menuSortingBasic.this.getY());
                     chatBox.setVisible(true);
                 }

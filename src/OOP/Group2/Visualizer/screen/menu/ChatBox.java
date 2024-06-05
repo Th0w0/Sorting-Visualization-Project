@@ -9,17 +9,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import OOP.Group2.Visualizer.graphicsElements.env;
-public class ChatBox extends JFrame {
+public class chatBox extends JFrame {
 
     private JPanel contentPane;
     private JTextField textField;
     private JTextPane chatPane;
     private JLabel loadingLabel;
 
-    public ChatBox() {
+    public chatBox() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 300, 790);
-        setTitle("Q&A");
+        setTitle("AI Assisstant");
+        ImageIcon logoIcon = new ImageIcon(env.AVATAR_AI);
+        Image logo = logoIcon.getImage(); // Extract the Image from ImageIcon
+        setIconImage(logo); 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));

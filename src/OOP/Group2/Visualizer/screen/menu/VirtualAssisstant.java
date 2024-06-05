@@ -58,7 +58,4 @@ public class VirtualAssisstant {
        return message.replace("\\n", "\n");
    }
 
-   public static void main(String[] args) {
-       System.out.println(chatGPT("Hello, what is the complexity of quicksort?"));
-   }
 }
