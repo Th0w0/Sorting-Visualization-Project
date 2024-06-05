@@ -9,14 +9,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import OOP.Group2.Visualizer.graphicsElements.env;
-public class chatBox extends JFrame {
+public class ChatBox extends JFrame {
 
     private JPanel contentPane;
     private JTextField textField;
     private JTextPane chatPane;
     private JLabel loadingLabel;
 
-    public chatBox() {
+    public ChatBox() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 300, 790);
         setTitle("AI Assisstant");

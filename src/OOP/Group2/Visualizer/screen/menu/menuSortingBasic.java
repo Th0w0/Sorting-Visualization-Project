@@ -32,7 +32,7 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
     private myCanvas canvas;
     private sorter sorter;
     private SwingWorker<Void, Void> sortWorker;
-    private chatBox chatBox;
+    private ChatBox chatBox;
 
     public menuSortingBasic() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -236,7 +236,7 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (chatBox == null || !chatBox.isDisplayable()) {
-                    chatBox = new chatBox();
+                    chatBox = new ChatBox();
                     chatBox.setLocation(menuSortingBasic.this.getX() + menuSortingBasic.this.getWidth(), menuSortingBasic.this.getY());
                     chatBox.setVisible(true);
                 }
