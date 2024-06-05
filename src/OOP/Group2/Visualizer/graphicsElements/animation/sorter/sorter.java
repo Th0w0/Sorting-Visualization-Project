@@ -106,7 +106,11 @@ public class sorter {
         bars bar;
         Random random = new Random();
         for (int i = 0; i < array.length; i++) {
-            int coef = i + random.nextInt(11) - 5;
+            int coef = 0;
+            do{
+                coef = i + random.nextInt(11) - 5;
+            }while(coef <= 0);
+
             int value = baseValue + coef *((MAX_BAR_HEIGHT - MIN_BAR_HEIGHT) / capacity);
     
             // Thêm biến đổi nhỏ ngẫu nhiên trong khoảng từ -20 đến 20
@@ -235,23 +239,24 @@ public class sorter {
         }
     }
     /*SORT */
-    private void colorBar(int index, Color color)
+    private void colorBar(int index, Color color, int timeout)
     {   
         //đặt màu cột = color truyền vào sau đấy trả về màu gốc
         bars bar = bars[index];
         Color oldColor = bar.getColor();
 
         bar.setColor(color);
+        repaintArray();
         bar.draw(g);
         bs.show();
 
         try {
-            TimeUnit.MILLISECONDS.sleep(10);
+            TimeUnit.MILLISECONDS.sleep(timeout);
         } catch (Exception ex) {}
 
         bar.setColor(oldColor);
         bar.draw(g);
-
+        repaintArray();
         bs.show();
     }
     /*SORTING WITH ANIMATION */
@@ -426,7 +431,10 @@ public class sorter {
                     publish();
                     try {
                         TimeUnit.MILLISECONDS.sleep(speed);
-                    } catch (Exception ex) {}
+                    } catch (Exception ex) {
+                        System.out.println("Day khong phai loi, day la tinh nang");
+                        
+                    }
                 }
     
                 g.dispose();
@@ -554,7 +562,7 @@ public class sorter {
             }
     
             bar.setColor(mergeColor);
-            colorBar(k, swappingColor);
+            colorBar(k, swappingColor,100);
             k++;
             comp++;
             swapping++;
@@ -571,7 +579,7 @@ public class sorter {
             array[k] = leftArr[l];
             bar.setValue(leftArr[l]);
             bar.setColor(mergeColor);
-            colorBar(k, swappingColor);
+            colorBar(k, swappingColor,100);
             l++;
             k++;
             swapping++;
@@ -586,7 +594,7 @@ public class sorter {
             array[k] = rightArr[r];
             bar.setValue(rightArr[r]);
             bar.setColor(mergeColor);
-            colorBar(k, swappingColor);
+            colorBar(k, swappingColor,100);
             r++;
             k++;
             swapping++;
@@ -695,7 +703,6 @@ public class sorter {
         if (low < high) {
             checkPause(); // Check for pause
             int pi = partition(arr, low, high);
-    
             quickSort(arr, low, pi - 1);
             quickSort(arr, pi + 1, high);
         }
@@ -703,10 +710,13 @@ public class sorter {
     
     private int partition(Integer arr[], int low, int high) {
         int pivot = arr[high];
+        // colorBar(high,colorConcept.BAR_ORANGE,1000);
+        bars[high].setColor(colorConcept.BAR_ORANGE);
+        repaintArray();
         int i = (low - 1);
         for (int j = low; j < high; j++) {
             checkPause(); // Check for pause
-    
+            
             if (arr[j] < pivot) {
                 i++;
                 swap(i, j);
@@ -717,7 +727,7 @@ public class sorter {
     
         swap(i + 1, high);
         swapping++;
-    
+        bars[high].setColor(originalColor);
         return i + 1;
     }
     
@@ -869,11 +879,11 @@ public class sorter {
     }
     private void swap(int i, int j)
     {
+        colorPair(i, j, swappingColor);
         // swap the elements
         int temp = array[j];
         array[j] = array[i];
         array[i] = temp;
-
         // clear the bar
         bars[i].clear(g);
         bars[j].clear(g);
@@ -887,7 +897,8 @@ public class sorter {
         // }
         bars[i].setValue(temp);
 
-        colorPair(i, j, swappingColor);
+
+        colorPair(i, j, colorConcept.BAR_GREEN);
     }
     private void colorPair(int i, int j, Color color)
     {
@@ -922,7 +933,7 @@ public class sorter {
         // swiping to green
         for (int i = 0; i < bars.length; i++)
         {
-            colorBar(i, comparingColor);
+            colorBar(i, comparingColor,10);
             bars[i].setColor(getBarColor(i));
             bars[i].draw(g);
             bs.show();

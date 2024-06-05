@@ -21,7 +21,7 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
         buttonPanel.ButtonListener, myCanvas.VisualizerProvider {
     public static final long serialVersionUID = 10L;
     private static final int WIDTH = 1100, HEIGHT = 768;
-    private static final int CAPACITY = 50, FPS = 50;
+    private static final int CAPACITY = 20, FPS = 10;
     private JPanel mainPanel, capacityPanel, fpsPanel, inforPanel, sortPanel;
     private buttonPanel buttonPanel;
     private JLabel capacityLabel, fpsLabel, timeLabel, compLabel, swapLabel, sortLabel;
