@@ -4,15 +4,17 @@ import OOP.Group2.Visualizer.graphicsElements.color.colorConcept;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import OOP.Group2.Visualizer.screen.menu.*;
+import OOP.Group2.Visualizer.graphicsElements.env;
 public class ChatBox extends JFrame {
 
     private JPanel contentPane;
     private JTextField textField;
-    private JTextArea chatArea;
+    private JTextPane chatPane;
+    private JLabel loadingLabel;
 
     public ChatBox() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -23,13 +25,11 @@ public class ChatBox extends JFrame {
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
-        chatArea = new JTextArea();
-        chatArea.setEditable(false);
-        chatArea.setLineWrap(true);
-        chatArea.setWrapStyleWord(true);
-        chatArea.setFont(new Font(null, Font.BOLD, 13));
-        chatArea.setForeground(colorConcept.TEXT);
-        JScrollPane scrollPane = new JScrollPane(chatArea);
+        chatPane = new JTextPane();
+        chatPane.setEditable(false);
+        chatPane.setFont(new Font(null, Font.BOLD, 13));
+        chatPane.setForeground(colorConcept.TEXT);
+        JScrollPane scrollPane = new JScrollPane(chatPane);
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
         JPanel panel = new JPanel();
@@ -43,15 +43,33 @@ public class ChatBox extends JFrame {
         textField.setForeground(colorConcept.TEXT);
         textField.setColumns(10);
 
+        // Create the loading label
+        loadingLabel = new JLabel(new ImageIcon(env.WAITING_TEXT));
+        loadingLabel.setHorizontalAlignment(JLabel.CENTER);
+        loadingLabel.setVisible(false); // Initially hidden
+        contentPane.add(loadingLabel, BorderLayout.NORTH);
+
         JButton btnSend = new JButton("Send");
         btnSend.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String userInput = textField.getText();
                 if (!userInput.isEmpty()) {
-                    chatArea.append("You: " + userInput + "\n");
-                    String answer = ChatGPTAPI.chatGPT(userInput);
-                    textField.setText("");
-                    chatArea.append("BACH KHOA TOAN THU: " + answer + "\n");
+                    appendToPane(chatPane, "You: " + userInput + "\n", Color.RED);
+                    textField.setText(""); // Clear the text field after sending
+
+                    // Show the loading GIF
+                    loadingLabel.setVisible(true);
+
+                    // Create a new Thread to call the API and display the answer
+                    new Thread(() -> {
+                        String answer = VirtualAssisstant.chatGPT(userInput);
+                        SwingUtilities.invokeLater(() -> {
+                            // Hide the loading GIF
+                            loadingLabel.setVisible(false);
+                            appendToPane(chatPane, "BACH KHOA TOAN THU: \n", Color.RED);
+                            appendToPane(chatPane, answer + "\n", colorConcept.TEXT);
+                        });
+                    }).start();
                 }
             }
         });
@@ -60,9 +78,20 @@ public class ChatBox extends JFrame {
         JButton btnClear = new JButton("Clear");
         btnClear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                chatArea.setText("");
+                chatPane.setText("");
             }
         });
         panel.add(btnClear, BorderLayout.WEST);
+    }
+
+    private void appendToPane(JTextPane tp, String msg, Color c) {
+        StyledDocument doc = tp.getStyledDocument();
+        Style style = tp.addStyle("Color Style", null);
+        StyleConstants.setForeground(style, c);
+        try {
+            doc.insertString(doc.getLength(), msg, style);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
 }
