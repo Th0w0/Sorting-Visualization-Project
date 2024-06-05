@@ -83,7 +83,7 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
         sorter = new sorter(CAPACITY, FPS, this);
         sorter.createRandomArray(canvas.getWidth(), canvas.getHeight());
 
-        JLabel fpsLabel = new JLabel("Capacity");
+        JLabel fpsLabel = new JLabel("FPS");
         fpsLabel.setForeground(colorConcept.TEXT);
         fpsLabel.setFont(new Font(null, Font.BOLD, 13));
 
@@ -114,7 +114,7 @@ public class menuSortingBasic extends JFrame implements sorter.SortedListener,
             }
         });
 
-        JLabel capacityLabel = new JLabel("FPS");
+        JLabel capacityLabel = new JLabel("Capacity");
         capacityLabel.setForeground(colorConcept.TEXT);
         capacityLabel.setFont(new Font(null, Font.BOLD, 13));
 
