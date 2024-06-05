@@ -18,7 +18,6 @@ public class myCanvas extends Canvas{
     {
         super.paint(g);
 		clear(g);
-
 		listener.onDrawArray();
     }
 

@@ -14,7 +14,7 @@ public class buttonPanel extends JPanel{
     private static final int BUTTON_WIDTH = 150, BUTTON_HEIGHT = 45;
     private JLabel[] buttons;
     private ButtonListener listener;
-    private int number = 9;
+    private int number = 7;
 
     public buttonPanel(ButtonListener listener){
         super();
