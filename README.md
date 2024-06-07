@@ -36,7 +36,7 @@ Welcome to the Sorting Visualization Project! This project is a graphical repres
     ```
 3. **Open the Project in Your IDE**:
     - Open IntelliJ IDEA (or your preferred Java IDE).
-    - Installing java package needed
+    - Installing java package needed and config your env file
 
 4. **Build the Project**: 
     - Ensure all dependencies are installed.
