@@ -3,7 +3,7 @@
 ## Introduction
 Welcome to the Sorting Visualization Project! This project is a graphical representation of basic sorting algorithms, designed to help users understand and visualize how different sorting techniques work. Developed by Group 2 for the Object-Oriented Programming (OOP) course in the 2023.1 semester at the Hanoi University of Science and Technology, this project aims to provide an educational tool for students and enthusiasts alike.
 ## Demo [Please give me a Star in Github if you think this project is usefuls]
-[Demo Video](https://github.com/duongnguyen291/SortingDemonstrate/blob/master/Presentation/Demo.mp4)
+![Demo Video](https://github.com/duongnguyen291/SortingDemonstrate/blob/master/Presentation/Demo.mp4)
 ## Features
 - **Visual Representation**: Watch as the sorting algorithms dynamically sort arrays of numbers.
 - **Algorithms Included**:
